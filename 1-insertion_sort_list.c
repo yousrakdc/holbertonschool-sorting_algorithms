@@ -11,37 +11,34 @@
 
 void insertion_sort_list(listint_t **list)
 {
-	listint_t *front, *back;
+	listint_t *front, *back, *ptr;
 
 	if (!list || !(*list) || !((*list)->next))
 		return;
 
 	front = (*list)->next;
 
-	while (front)
+	while (front != NULL)
 	{
-		back = front->prev;
+		back = front;
+		front = front->next;
+		ptr = back->prev;
 
-		while (back && back->n > front->n)
+		while (ptr != NULL && ptr->n > back->n)
 		{
-			if (back->prev)
-				back->prev->next = front;
+			ptr->next = back->next
+			if (back->next != NULL)
+				back->next->prev = ptr;
+
+				back->next = ptr;
+				back->prev = ptr->prev;
+			if  (ptr->prev != NULL)
+				ptr->prev->nect = back
 			else
 				*list = front;
-
-			front->prev = back->prev;
-			back->prev = front;
-			back->next = front->next;
-			front->next = back;
-
-			if (back->next)
-				back->next->prev = back;
-
-			print_list(*list);
-
-			back = front->prev;
+			ptr->prev = back;
+			ptr = bac->prev;
 		}
 
-		front = front->next;
 	}
 }
