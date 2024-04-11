@@ -9,32 +9,29 @@
  */
 int partition(int *array, int low, int high, size_t size)
 {
-	if (array == NULL || low < 0 || high < 0 || size <= 0)
-		return (-1);
-
 	int pivot = array[high];
-	int i = low - 1;
+	int i = low;
 	int temp;
 
 	for (int j = low; j < high; j++)
 	{
 		if (array[j] < pivot)
 		{
-			i++;
 			temp = array[i];
 			array[i] = array[j];
 			array[j] = temp;
-			if (i != j)
+			if (temp != array[i])
 				print_array(array, size);
+			++i;
 		}
 	}
-	temp = array[i + 1];
-	array[i + 1] = array[high];
+	temp = array[i];
+	array[i] = array[high];
 	array[high] = temp;
-	if (i + 1 != high)
+	if (temp != array[i])
 		print_array(array, size);
 
-	return (i + 1);
+	return (i);
 }
 /**
  * quick_sort_helper - Sorts an array of integers
@@ -48,15 +45,12 @@ void quick_sort_helper(int *array, int low, int high, size_t size)
 {
 	int partition_index;
 
-	if (array == NULL || low < 0 || high < 0 || size <= 0)
+	if (low < 0 || low >= high)
 		return;
 
-	if (low < high)
-	{
-		partition_index = partition(array, low, high, size);
-		quick_sort_helper(array, low,  partition_index - 1, size);
-		quick_sort_helper(array, partition_index + 1, high, size);
-	}
+	partition_index = partition(array, low, high, size);
+	quick_sort_helper(array, low,  partition_index - 1, size);
+	quick_sort_helper(array, partition_index + 1, high, size);
 }
 /**
  * quick_sort - that sorts an array of integers
@@ -67,6 +61,5 @@ void quick_sort(int *array, size_t size)
 {
 	if (array == NULL || size < 2)
 		return;
-	print_array(array, size);
 	quick_sort_helper(array, 0, size - 1, size);
 }
