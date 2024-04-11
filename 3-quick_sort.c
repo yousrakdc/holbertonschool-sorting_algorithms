@@ -4,7 +4,7 @@
  * @array: Pointer to the array to be partitioned
  * @low: The index of the first element of the partition
  * @high: The index of the last element of the partition
- *
+ * @size: Number of elements in the array
  * Return: The index of the pivot element.
  */
 int partition(int *array, int low, int high, size_t size)
@@ -14,7 +14,7 @@ int partition(int *array, int low, int high, size_t size)
 	int temp;
 
 	if (low < 0 || high >= (int)size)
-		return -1;
+		return (-1);
 
 	for (int j = low; j < high; j++)
 	{
@@ -37,13 +37,16 @@ int partition(int *array, int low, int high, size_t size)
 	return (i + 1);
 }
 /**
- * quick_sort_helper - Sorts an array of integers using the Quick sort algorithm
+ * quick_sort_helper - Sorts an array of integers
+ * using the Quick sort algorithm
  * @array: Pointer to the array to be sorted
+ * @low: The index of the first element of the partition
+ * @high: The index of the last element of the partition
  * @size: Number of elements in the array
  */
-void quick_sort_helper(int *array,int low, int high, size_t size)
+void quick_sort_helper(int *array, int low, int high, size_t size)
 {
-	int partition_index; 
+	int partition_index;
 
 	if (low >= high || low < 0)
 		return;
@@ -62,7 +65,7 @@ void quick_sort_helper(int *array,int low, int high, size_t size)
  */
 void quick_sort(int *array, size_t size)
 {
-	if (array == NULL ||size < 2)
+	if (array == NULL || size < 2)
 		return;
 	print_array(array, size);
 	quick_sort_helper(array, 0, size - 1, size);
