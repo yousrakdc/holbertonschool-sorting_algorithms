@@ -54,6 +54,7 @@ void quick_sort_helper(int *array, int low, int high, size_t size)
 	if (low < high)
 	{
 		partition_index = partition(array, low, high, size);
+		print_array(array, size);
 		quick_sort_helper(array, low,  partition_index - 1, size);
 		quick_sort_helper(array, partition_index + 1, high, size);
 	}
